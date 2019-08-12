@@ -8,7 +8,7 @@
           </div>
           <div class="card-body messageList">
               <div class="messages" v-for="(msg, index) in messages" :key="index">
-                  <p><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
+                  <p><small>{{time.getHours()}}:{{time.getMinutes()}} </small><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
               </div>
           </div>
       </div>
@@ -36,12 +36,12 @@ export default {
         user: '',
         message: '',
         messages: [],
+        time: new Date(),
         socket: io('localhost:3000')
         }
     },
     methods: {
-        sendMessage(e){
-            e.preventDefault();
+        sendMessage(){
             this.socket.emit('SEND_MESSAGE', {
                 user: this.user,
                 message: this.message
